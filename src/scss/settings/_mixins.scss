@@ -10,6 +10,7 @@
 // ==============================================
 
 @use 'sass:map';
+@use 'sass:meta';
 @use '@scss/settings/functions' as f;
 
 // ----------------------------------------------
@@ -20,7 +21,7 @@
 // @include respond-down(1024px) { ... }
 // ----------------------------------------------
 @mixin respond($bp) {
-  @if type-of($bp) == number {
+  @if meta.type-of($bp) == number {
     @media (min-width: #{$bp}) {
       @content;
     }
@@ -37,7 +38,7 @@
 }
 
 @mixin respond-down($bp) {
-  @if type-of($bp) == number {
+  @if meta.type-of($bp) == number {
     @media (max-width: #{$bp}) {
       @content;
     }
