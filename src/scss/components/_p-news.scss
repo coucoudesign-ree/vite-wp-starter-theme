@@ -1,0 +1,74 @@
+// ==============================================
+// COMPONENTS / _p-news.scss — News セクション
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-news {
+  background-color: f.color(navy);
+}
+
+.p-news__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.p-news__item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.p-news__link {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 1.5rem 0.25rem;
+  text-decoration: none;
+  color: inherit;
+  transition: opacity 0.2s ease;
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+// リンクなしのダミー行
+.p-news__item:not(:has(.p-news__link)) {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.25rem;
+  padding: 1.5rem 0.25rem;
+}
+
+.p-news__date {
+  font-family: Georgia, serif;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: f.color(gold);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.p-news__cat {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  color: f.color(gold);
+  border: 1px solid f.color(gold);
+  padding: 0.15em 0.75em;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.p-news__title {
+  font-size: clamp(0.875rem, 1.3vw, 1rem);
+  color: #fff;
+  line-height: 1.6;
+
+  @include m.respond(md) {
+    flex: 1;
+  }
+}

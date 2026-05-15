@@ -1,0 +1,71 @@
+// ==============================================
+// COMPONENTS / _c-section.scss
+// 採用サイト共通：レイアウト・セクション見出し
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+// ----------------------------------------------
+// コンテナ
+// ----------------------------------------------
+.l-container {
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 60px);
+}
+
+// ----------------------------------------------
+// セクション共通パディング
+// ----------------------------------------------
+.l-section {
+  padding-block: clamp(60px, 8vw, 100px);
+}
+
+// ----------------------------------------------
+// セクション見出しブロック
+// ----------------------------------------------
+.p-section-header {
+  margin-bottom: clamp(40px, 5vw, 64px);
+}
+
+// ----------------------------------------------
+// 英字サブタイトル
+// ----------------------------------------------
+.c-section-en {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: f.color(gold);
+  margin-bottom: 0.5rem;
+}
+
+// ----------------------------------------------
+// 日本語セクションタイトル
+// ----------------------------------------------
+.c-section-title {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+  font-weight: 600;
+  line-height: 1.3;
+  color: f.color(navy);
+  margin: 0;
+
+  .p-section-header--light & {
+    color: f.color(cream);
+  }
+}
+
+// light modifier（navy背景上での表示）
+.p-section-header--light {
+  .c-section-en {
+    color: f.color(gold);
+  }
+
+  .c-section-title {
+    color: f.color(cream);
+  }
+}

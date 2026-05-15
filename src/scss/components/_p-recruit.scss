@@ -1,0 +1,77 @@
+// ==============================================
+// COMPONENTS / _p-recruit.scss — Recruit セクション
+// ==============================================
+
+@use 'sass:color';
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-recruit {
+  background-color: f.color(navy);
+}
+
+.p-recruit__grid {
+  display: grid;
+  gap: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+
+  @include m.respond(md) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include m.respond(lg) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.p-recruit__card {
+  background-color: f.color(navy);
+  padding: clamp(28px, 4vw, 48px);
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: color.adjust(#1a2744, $lightness: 5%);
+  }
+}
+
+.p-recruit__card-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+}
+
+.p-recruit__card-en {
+  display: block;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 0.75rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: f.color(gold);
+  margin-bottom: 0.75rem;
+}
+
+.p-recruit__card-title {
+  font-size: clamp(1.1rem, 1.8vw, 1.375rem);
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.p-recruit__card-excerpt {
+  font-size: 0.875rem;
+  line-height: 1.9;
+  color: rgba(255, 255, 255, 0.65);
+  flex: 1;
+  margin-bottom: 1.5rem;
+}
+
+.p-recruit__card-more {
+  font-size: 0.8125rem;
+  letter-spacing: 0.05em;
+  color: f.color(gold);
+  margin-top: auto;
+}

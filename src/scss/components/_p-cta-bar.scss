@@ -1,0 +1,82 @@
+// ==============================================
+// COMPONENTS / _p-cta-bar.scss — 固定CTAバー
+// ==============================================
+
+@use 'sass:color';
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+// フッターのCTAバー分の余白
+body {
+  padding-bottom: 72px;
+
+  @include m.respond(md) {
+    padding-bottom: 80px;
+  }
+}
+
+.p-cta-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: f.z(header);
+  background-color: f.color(navy);
+  border-top: 1px solid rgba(200, 169, 110, 0.3);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.p-cta-bar__inner {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding-block: 0.875rem;
+}
+
+.p-cta-bar__text {
+  display: none;
+  font-size: 0.8125rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: auto;
+
+  @include m.respond(lg) {
+    display: block;
+  }
+}
+
+.p-cta-bar__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.625rem 1.5rem;
+  font-size: 0.8125rem;
+  letter-spacing: 0.06em;
+  text-decoration: none;
+  transition: background-color 0.25s ease, color 0.25s ease;
+  white-space: nowrap;
+
+  @include m.respond(md) {
+    padding: 0.75rem 2rem;
+  }
+
+  &--career {
+    background-color: f.color(gold);
+    color: f.color(navy);
+    font-weight: 700;
+
+    &:hover {
+      background-color: color.adjust(#c8a96e, $lightness: -8%);
+    }
+  }
+
+  &--member {
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: #fff;
+
+    &:hover {
+      border-color: f.color(gold);
+      color: f.color(gold);
+    }
+  }
+}

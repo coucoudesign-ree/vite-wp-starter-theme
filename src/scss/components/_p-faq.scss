@@ -1,0 +1,37 @@
+// ==============================================
+// COMPONENTS / _p-faq.scss — FAQ セクション
+// アコーディオン色をnavy背景用にオーバーライド
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-faq {
+  background-color: f.color(navy);
+}
+
+.p-faq__list {
+  max-width: 800px;
+  margin-inline: auto;
+
+  // navy背景上でのアコーディオン色オーバーライド
+  .c-accordion {
+    border-top-color: rgba(255, 255, 255, 0.15);
+
+    &:last-of-type {
+      border-bottom-color: rgba(255, 255, 255, 0.15);
+    }
+  }
+
+  .c-accordion__summary {
+    color: #fff;
+  }
+
+  .c-accordion__icon {
+    color: f.color(gold);
+  }
+
+  .c-accordion__content {
+    color: rgba(255, 255, 255, 0.7);
+  }
+}

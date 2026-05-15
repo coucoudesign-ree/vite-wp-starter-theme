@@ -102,3 +102,70 @@ function vite_wp_register_cpt_member(): void {
     ]);
 }
 add_action('init', 'vite_wp_register_cpt_member');
+
+// ─────────────────────────────────────────────
+// Custom Post Type: news
+// ─────────────────────────────────────────────
+function vite_wp_register_cpt_news(): void {
+    register_post_type('news', [
+        'labels'       => [
+            'name'          => __('News', 'vite-wp-starter'),
+            'singular_name' => __('News', 'vite-wp-starter'),
+            'add_new_item'  => __('Add New News', 'vite-wp-starter'),
+        ],
+        'public'       => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-megaphone',
+        'supports'     => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'has_archive'  => true,
+        'rewrite'      => ['slug' => 'news'],
+    ]);
+    register_taxonomy('news_category', 'news', [
+        'label'        => __('News Category', 'vite-wp-starter'),
+        'public'       => true,
+        'show_in_rest' => true,
+        'hierarchical' => true,
+        'rewrite'      => ['slug' => 'news-category'],
+    ]);
+}
+add_action('init', 'vite_wp_register_cpt_news');
+
+// ─────────────────────────────────────────────
+// Custom Post Type: recruit
+// ─────────────────────────────────────────────
+function vite_wp_register_cpt_recruit(): void {
+    register_post_type('recruit', [
+        'labels'       => [
+            'name'          => __('Recruit', 'vite-wp-starter'),
+            'singular_name' => __('Recruit', 'vite-wp-starter'),
+            'add_new_item'  => __('Add New Position', 'vite-wp-starter'),
+        ],
+        'public'       => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-id',
+        'supports'     => ['title', 'editor', 'thumbnail', 'excerpt', 'custom-fields'],
+        'has_archive'  => true,
+        'rewrite'      => ['slug' => 'recruit'],
+    ]);
+}
+add_action('init', 'vite_wp_register_cpt_recruit');
+
+// ─────────────────────────────────────────────
+// Custom Post Type: blog
+// ─────────────────────────────────────────────
+function vite_wp_register_cpt_blog(): void {
+    register_post_type('blog', [
+        'labels'       => [
+            'name'          => __('Blog', 'vite-wp-starter'),
+            'singular_name' => __('Blog', 'vite-wp-starter'),
+            'add_new_item'  => __('Add New Blog Post', 'vite-wp-starter'),
+        ],
+        'public'       => true,
+        'show_in_rest' => true,
+        'menu_icon'    => 'dashicons-edit-large',
+        'supports'     => ['title', 'editor', 'thumbnail', 'excerpt'],
+        'has_archive'  => true,
+        'rewrite'      => ['slug' => 'blog'],
+    ]);
+}
+add_action('init', 'vite_wp_register_cpt_blog');

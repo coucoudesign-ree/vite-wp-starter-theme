@@ -1,0 +1,75 @@
+// ==============================================
+// COMPONENTS / _p-hero.scss — Hero セクション
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  background-color: f.color(navy);
+  overflow: hidden;
+
+  // 背景装飾
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 80% at 80% 50%, rgba(200, 169, 110, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 60% at 10% 80%, rgba(200, 169, 110, 0.05) 0%, transparent 60%);
+    pointer-events: none;
+  }
+}
+
+.p-hero__inner {
+  position: relative;
+  z-index: 1;
+  padding-block: clamp(80px, 12vw, 140px);
+}
+
+.p-hero__en {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: f.color(gold);
+  margin-bottom: 1.5rem;
+}
+
+.p-hero__title {
+  font-family: 'Noto Serif JP', Georgia, serif;
+  font-size: clamp(2rem, 5.5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #fff;
+  margin-bottom: 2rem;
+  letter-spacing: 0.04em;
+}
+
+.p-hero__lead {
+  font-size: clamp(0.9rem, 1.4vw, 1.05rem);
+  line-height: 2;
+  color: rgba(255, 255, 255, 0.75);
+  margin-bottom: 3rem;
+}
+
+.p-hero__cta {
+  display: inline-block;
+  padding: 1rem 2.5rem;
+  border: 1px solid f.color(gold);
+  color: f.color(gold);
+  font-size: 0.875rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: f.color(gold);
+    color: f.color(navy);
+  }
+}

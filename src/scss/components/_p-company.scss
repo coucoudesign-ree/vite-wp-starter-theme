@@ -1,0 +1,65 @@
+// ==============================================
+// COMPONENTS / _p-company.scss — Company セクション
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-company {
+  background-color: f.color(cream);
+}
+
+.p-company__inner {
+  display: grid;
+  gap: clamp(40px, 5vw, 64px);
+
+  @include m.respond(lg) {
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+  }
+}
+
+.p-company__table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.p-company__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: clamp(0.85rem, 1.2vw, 0.9375rem);
+
+  tr {
+    border-bottom: 1px solid rgba(26, 39, 68, 0.1);
+
+    &:first-child {
+      border-top: 1px solid rgba(26, 39, 68, 0.1);
+    }
+  }
+
+  th {
+    width: 7em;
+    padding: 1.25rem 1rem 1.25rem 0;
+    text-align: left;
+    font-weight: 600;
+    color: f.color(navy);
+    vertical-align: top;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 1.25rem 0;
+    color: f.color(neutral-700);
+    line-height: 1.8;
+  }
+}
+
+.p-company__map {
+  iframe {
+    width: 100%;
+    height: clamp(280px, 40vw, 420px);
+    display: block;
+    border: 0;
+    filter: grayscale(20%);
+  }
+}

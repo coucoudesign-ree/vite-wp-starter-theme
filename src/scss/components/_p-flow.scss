@@ -1,0 +1,92 @@
+// ==============================================
+// COMPONENTS / _p-flow.scss — Flow セクション
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-flow {
+  background-color: f.color(cream);
+}
+
+.p-flow__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 0;
+
+  @include m.respond(lg) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.p-flow__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(24px, 3vw, 40px);
+  background-color: #fff;
+  border: 1px solid rgba(26, 39, 68, 0.08);
+
+  // 矢印（PC: 右、SP: 下）
+  @include m.respond(lg) {
+    &:not(:last-child)::after {
+      content: '→';
+      position: absolute;
+      right: -0.85rem;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 1;
+      font-size: 1.25rem;
+      color: f.color(gold);
+    }
+  }
+
+  @include m.respond-down(lg) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 1.5rem;
+
+    &:not(:last-child)::after {
+      content: '';
+      display: block;
+      width: 1px;
+      height: 24px;
+      background-color: f.color(gold);
+      margin: 0 auto;
+    }
+  }
+}
+
+.p-flow__num {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2.5rem, 5vw, 3.5rem);
+  font-weight: 400;
+  color: f.color(gold);
+  line-height: 1;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+
+  @include m.respond-down(lg) {
+    margin-bottom: 0;
+    min-width: 3rem;
+  }
+}
+
+.p-flow__body {
+  flex: 1;
+}
+
+.p-flow__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: f.color(navy);
+  margin-bottom: 0.5rem;
+}
+
+.p-flow__desc {
+  font-size: 0.8125rem;
+  line-height: 1.9;
+  color: f.color(neutral-600);
+}

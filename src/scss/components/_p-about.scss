@@ -1,0 +1,53 @@
+// ==============================================
+// COMPONENTS / _p-about.scss — About セクション
+// ==============================================
+
+@use '@scss/settings/functions' as f;
+@use '@scss/settings/mixins' as m;
+
+.p-about {
+  background-color: f.color(cream);
+}
+
+.p-about__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-bottom: clamp(40px, 5vw, 60px);
+
+  @include m.respond(lg) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.p-about__img {
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+
+    &:hover {
+      transform: scale(1.04);
+    }
+  }
+}
+
+.p-about__body {
+  max-width: 760px;
+  margin-inline: auto;
+  text-align: center;
+
+  p {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    line-height: 2;
+    color: f.color(neutral-700);
+
+    & + p {
+      margin-top: 1.5em;
+    }
+  }
+}
