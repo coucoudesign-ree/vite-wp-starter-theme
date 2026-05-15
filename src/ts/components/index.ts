@@ -10,6 +10,7 @@ import { initSwiper } from './swiper';
 import { initInstagram } from './instagram';
 import { initModal } from './modal';
 import { initAccordion } from './accordion';
+import { initNewsTab } from './news-tab';
 import { initForm } from '../form/form-handler';
 import { initZipLookup } from '../form/zip';
 
@@ -25,6 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
   if (document.querySelector('#insta-feed')) void initInstagram();
   if (document.querySelector('[data-modal-trigger]')) initModal();
   if (document.querySelector('.c-accordion')) initAccordion();
+  if (document.querySelector('.p-news__tab')) initNewsTab();
   if (document.querySelector('#js-contact-form')) {
     initForm();
     initZipLookup();

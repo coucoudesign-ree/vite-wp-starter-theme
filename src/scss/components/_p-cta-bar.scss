@@ -22,7 +22,7 @@ body {
   right: 0;
   z-index: f.z(header);
   background-color: f.color(navy);
-  border-top: 1px solid rgba(200, 169, 110, 0.3);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.25);
 }
 
@@ -61,22 +61,22 @@ body {
   }
 
   &--career {
-    background-color: f.color(gold);
+    background-color: f.color(cream);
     color: f.color(navy);
     font-weight: 700;
 
     &:hover {
-      background-color: color.adjust(#c8a96e, $lightness: -8%);
+      background-color: #fff;
     }
   }
 
   &--member {
-    border: 1px solid rgba(255, 255, 255, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.45);
     color: #fff;
 
     &:hover {
-      border-color: f.color(gold);
-      color: f.color(gold);
+      border-color: rgba(255, 255, 255, 0.9);
+      background-color: rgba(255, 255, 255, 0.08);
     }
   }
 }

@@ -9,18 +9,45 @@
   background-color: f.color(cream);
 }
 
-.p-about__grid {
+// ----------------------------------------------
+// イントロテキスト
+// ----------------------------------------------
+.p-about__intro {
+  max-width: 700px;
+  margin-inline: auto;
+  text-align: center;
+  margin-bottom: clamp(40px, 6vw, 64px);
+
+  p {
+    font-size: clamp(0.9rem, 1.3vw, 1rem);
+    line-height: 2;
+    color: f.color(neutral-700);
+
+    & + p {
+      margin-top: 1.25em;
+    }
+  }
+}
+
+// ----------------------------------------------
+// カードグリッド（4枚 → 2×2 / PC 4列）
+// ----------------------------------------------
+.p-about__cards {
   display: grid;
+  gap: clamp(16px, 2.5vw, 28px);
   grid-template-columns: repeat(2, 1fr);
-  gap: 12px;
-  margin-bottom: clamp(40px, 5vw, 60px);
 
   @include m.respond(lg) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-.p-about__img {
+.p-about__card {
+  background-color: #fff;
+  overflow: hidden;
+}
+
+.p-about__card-img {
   aspect-ratio: 4 / 3;
   overflow: hidden;
 
@@ -29,25 +56,28 @@
     height: 100%;
     object-fit: cover;
     transition: transform 0.6s ease;
+  }
 
-    &:hover {
-      transform: scale(1.04);
-    }
+  .p-about__card:hover & img {
+    transform: scale(1.04);
   }
 }
 
-.p-about__body {
-  max-width: 760px;
-  margin-inline: auto;
-  text-align: center;
+.p-about__card-body {
+  padding: clamp(14px, 2vw, 20px);
+}
 
-  p {
-    font-size: clamp(0.9rem, 1.3vw, 1rem);
-    line-height: 2;
-    color: f.color(neutral-700);
+.p-about__card-title {
+  font-size: clamp(0.875rem, 1.3vw, 1rem);
+  font-weight: 700;
+  color: f.color(navy);
+  margin-bottom: 0.5rem;
+  line-height: 1.4;
+}
 
-    & + p {
-      margin-top: 1.5em;
-    }
-  }
+.p-about__card-desc {
+  font-size: 0.8125rem;
+  line-height: 1.85;
+  color: f.color(neutral-600);
+  margin: 0;
 }

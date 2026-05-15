@@ -17,15 +17,46 @@
             <span class="c-section-en">About Us</span>
             <h2 class="c-section-title">わたしたちについて</h2>
         </div>
-        <div class="p-about__grid">
-            <div class="p-about__img"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Photo+01" alt="会社の様子1" loading="lazy"></div>
-            <div class="p-about__img"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Photo+02" alt="会社の様子2" loading="lazy"></div>
-            <div class="p-about__img"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Photo+03" alt="会社の様子3" loading="lazy"></div>
-            <div class="p-about__img"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Photo+04" alt="会社の様子4" loading="lazy"></div>
+        <div class="p-about__intro">
+            <p>私たちは、テクノロジーとクリエイティビティの力で社会課題を解決するプロフェッショナル集団です。多様なバックグラウンドを持つメンバーが集まり、互いの強みを活かしながら成長しています。</p>
         </div>
-        <div class="p-about__body">
-            <p>私たちは、テクノロジーとクリエイティビティの力で、社会の課題を解決するプロフェッショナル集団です。2010年の創業以来、多様なバックグラウンドを持つメンバーが集まり、互いの強みを活かしながら成長してきました。</p>
-            <p>ここでは「挑戦」を称え、「失敗」を学びの機会と捉え、常に前進し続けることができます。あなたの情熱と行動力を、ぜひ私たちのチームに加えてください。</p>
+        <div class="p-about__cards">
+            <article class="p-about__card">
+                <div class="p-about__card-img">
+                    <img src="https://placehold.jp/1a2744/f5f0e8/600x450.png?text=Environment" alt="働く環境" loading="lazy">
+                </div>
+                <div class="p-about__card-body">
+                    <h3 class="p-about__card-title">働く環境</h3>
+                    <p class="p-about__card-desc">最新設備を備えたオフィスとリモートワーク制度を完備。自分に合った働き方でパフォーマンスを最大化できます。</p>
+                </div>
+            </article>
+            <article class="p-about__card">
+                <div class="p-about__card-img">
+                    <img src="https://placehold.jp/1a2744/f5f0e8/600x450.png?text=Growth" alt="成長機会" loading="lazy">
+                </div>
+                <div class="p-about__card-body">
+                    <h3 class="p-about__card-title">成長の機会</h3>
+                    <p class="p-about__card-desc">社内研修・書籍補助・資格取得支援など、メンバーの学びを後押しする制度が充実しています。</p>
+                </div>
+            </article>
+            <article class="p-about__card">
+                <div class="p-about__card-img">
+                    <img src="https://placehold.jp/1a2744/f5f0e8/600x450.png?text=Culture" alt="カルチャー" loading="lazy">
+                </div>
+                <div class="p-about__card-body">
+                    <h3 class="p-about__card-title">挑戦するカルチャー</h3>
+                    <p class="p-about__card-desc">「失敗してもいい、挑戦しよう」が合言葉。新しいアイデアを実行に移せるフラットな環境です。</p>
+                </div>
+            </article>
+            <article class="p-about__card">
+                <div class="p-about__card-img">
+                    <img src="https://placehold.jp/1a2744/f5f0e8/600x450.png?text=Team" alt="チーム" loading="lazy">
+                </div>
+                <div class="p-about__card-body">
+                    <h3 class="p-about__card-title">多様なチーム</h3>
+                    <p class="p-about__card-desc">120名のメンバーが、それぞれの専門性を持ち寄り協働。異なる視点が新しい価値を生み出します。</p>
+                </div>
+            </article>
         </div>
     </div>
 </section>
@@ -37,49 +68,54 @@
             <span class="c-section-en">News</span>
             <h2 class="c-section-title">お知らせ</h2>
         </div>
+        <div class="p-news__tabs" role="tablist">
+            <button class="p-news__tab is-active" data-tab="all" role="tab" aria-selected="true">すべて</button>
+            <button class="p-news__tab" data-tab="notice" role="tab" aria-selected="false">お知らせ</button>
+            <button class="p-news__tab" data-tab="recruit" role="tab" aria-selected="false">採用情報</button>
+        </div>
         <ul class="p-news__list">
             <?php
             $news_query = new WP_Query([
                 'post_type'      => 'news',
-                'posts_per_page' => 5,
+                'posts_per_page' => 10,
                 'no_found_rows'  => true,
             ]);
             if ($news_query->have_posts()):
-                while ($news_query->have_posts()): $news_query->the_post(); ?>
-                <li class="p-news__item">
+                while ($news_query->have_posts()): $news_query->the_post();
+                    $cats     = get_the_terms(get_the_ID(), 'news_category');
+                    $cat_slug = ($cats && !is_wp_error($cats)) ? esc_attr($cats[0]->slug) : 'notice';
+                    $cat_name = ($cats && !is_wp_error($cats)) ? esc_html($cats[0]->name) : 'お知らせ';
+                ?>
+                <li class="p-news__item" data-cat="<?php echo $cat_slug; ?>">
                     <a href="<?php the_permalink(); ?>" class="p-news__link">
                         <time class="p-news__date" datetime="<?php echo get_the_date('Y-m-d'); ?>"><?php echo get_the_date('Y.m.d'); ?></time>
-                        <?php
-                        $cats = get_the_terms(get_the_ID(), 'news_category');
-                        $cat_name = ($cats && !is_wp_error($cats)) ? esc_html($cats[0]->name) : 'お知らせ';
-                        ?>
                         <span class="p-news__cat"><?php echo $cat_name; ?></span>
                         <span class="p-news__title"><?php the_title(); ?></span>
                     </a>
                 </li>
                 <?php endwhile; wp_reset_postdata();
             else: ?>
-                <li class="p-news__item">
+                <li class="p-news__item" data-cat="recruit">
                     <span class="p-news__date">2025.03.15</span>
                     <span class="p-news__cat">採用情報</span>
                     <span class="p-news__title">2026年度 新卒採用エントリー受付開始</span>
                 </li>
-                <li class="p-news__item">
+                <li class="p-news__item" data-cat="notice">
                     <span class="p-news__date">2025.02.01</span>
                     <span class="p-news__cat">お知らせ</span>
                     <span class="p-news__title">会社説明会のご案内（オンライン開催）</span>
                 </li>
-                <li class="p-news__item">
+                <li class="p-news__item" data-cat="notice">
                     <span class="p-news__date">2025.01.10</span>
-                    <span class="p-news__cat">プレスリリース</span>
+                    <span class="p-news__cat">お知らせ</span>
                     <span class="p-news__title">新サービスローンチのお知らせ</span>
                 </li>
-                <li class="p-news__item">
+                <li class="p-news__item" data-cat="recruit">
                     <span class="p-news__date">2024.12.25</span>
                     <span class="p-news__cat">採用情報</span>
                     <span class="p-news__title">中途採用（エンジニア職）の募集を開始しました</span>
                 </li>
-                <li class="p-news__item">
+                <li class="p-news__item" data-cat="notice">
                     <span class="p-news__date">2024.11.20</span>
                     <span class="p-news__cat">お知らせ</span>
                     <span class="p-news__title">オフィス移転のお知らせ</span>
@@ -351,7 +387,7 @@
             <?php
             $blog_query = new WP_Query([
                 'post_type'      => 'blog',
-                'posts_per_page' => 3,
+                'posts_per_page' => 6,
                 'no_found_rows'  => true,
             ]);
             if ($blog_query->have_posts()):
@@ -389,6 +425,27 @@
                     <div class="p-blog__card-body">
                         <time class="p-blog__date">2025.01.25</time>
                         <h3 class="p-blog__title">オフィス移転！新しい環境で働く魅力とは</h3>
+                    </div>
+                </article>
+                <article class="p-blog__card">
+                    <div class="p-blog__thumb"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Blog+04" alt="ブログ記事4" loading="lazy"></div>
+                    <div class="p-blog__card-body">
+                        <time class="p-blog__date">2025.01.08</time>
+                        <h3 class="p-blog__title">デザイナーが大切にしている「余白」の話</h3>
+                    </div>
+                </article>
+                <article class="p-blog__card">
+                    <div class="p-blog__thumb"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Blog+05" alt="ブログ記事5" loading="lazy"></div>
+                    <div class="p-blog__card-body">
+                        <time class="p-blog__date">2024.12.18</time>
+                        <h3 class="p-blog__title">チームでアイデアを形にするプロセス</h3>
+                    </div>
+                </article>
+                <article class="p-blog__card">
+                    <div class="p-blog__thumb"><img src="https://placehold.jp/3d4070/ffffff/600x400.png?text=Blog+06" alt="ブログ記事6" loading="lazy"></div>
+                    <div class="p-blog__card-body">
+                        <time class="p-blog__date">2024.12.05</time>
+                        <h3 class="p-blog__title">育休復帰メンバーが語る、安心して働ける理由</h3>
                     </div>
                 </article>
             <?php endif; ?>
