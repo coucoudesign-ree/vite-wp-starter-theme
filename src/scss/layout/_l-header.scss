@@ -1,16 +1,273 @@
 // ==============================================
-// 🏗️ レイアウト - ヘッダ  ー
-// ----------------------------------------------
+// LAYOUT / _l-header.scss
+// ==============================================
 
 @use '@scss/settings/functions' as f;
 @use '@scss/settings/mixins' as m;
 
 // ----------------------------------------------
-// 🧱 基本構造
+// 定数
 // ----------------------------------------------
+$header-h:    70px;
+$header-h-sp: 60px;
+$header-bp:   960px;
 
+// ----------------------------------------------
+// リサイズ中のトランジション抑制
+// ----------------------------------------------
+.no-anim * {
+  transition: none !important;
+}
+
+// ----------------------------------------------
+// スクロールロック
+// ----------------------------------------------
+body.is-fixed {
+  overflow: hidden;
+  position: fixed;
+  width: 100%;
+}
+
+// ----------------------------------------------
+// ヘッダー本体
+// ----------------------------------------------
 .l-header {
-  background: #333;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: f.z(header);
+  height: $header-h-sp;
+  background-color: f.color(navy);
+  transition: background-color 0.35s ease, box-shadow 0.35s ease;
+
+  @media (min-width: #{$header-bp}) {
+    height: $header-h;
+  }
+
+  &.is-scrolled {
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.2);
+  }
+}
+
+// フロントページ：スクロール前は透過
+.home .l-header:not(.is-scrolled) {
+  background-color: transparent;
+}
+
+// ----------------------------------------------
+// メインコンテンツのオフセット（固定ヘッダー分）
+// ----------------------------------------------
+.l-main {
+  padding-top: $header-h-sp;
+
+  @media (min-width: #{$header-bp}) {
+    padding-top: $header-h;
+  }
+}
+
+// フロントページ：Hero が透過ヘッダーと重なるため不要
+.home .l-main {
+  padding-top: 0;
+}
+
+// ----------------------------------------------
+// インナー（flex コンテナ）
+// ----------------------------------------------
+.l-header__inner {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  gap: 1.5rem;
+}
+
+// ----------------------------------------------
+// ロゴ
+// ----------------------------------------------
+.l-header__logo {
+  flex-shrink: 0;
+  margin-right: auto;
+  line-height: 1;
+
+  img,
+  svg {
+    max-height: 36px;
+    width: auto;
+    display: block;
+  }
+}
+
+.l-header__logo-text {
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(0.9375rem, 1.5vw, 1.125rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
   color: #fff;
-  padding: 20px;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+// ----------------------------------------------
+// ナビゲーション
+// ----------------------------------------------
+.l-header__nav {
+  // ─ SP：ドロワー ─
+  @media (max-width: #{$header-bp - 1px}) {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(300px, 85vw);
+    background-color: f.color(navy);
+    padding: #{$header-h-sp + 24px} 2rem 2.5rem;
+    transform: translateX(100%);
+    transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 201;
+    overflow-y: auto;
+
+    &.is-active {
+      transform: translateX(0);
+    }
+  }
+
+  // ─ PC：インライン ─
+  @media (min-width: #{$header-bp}) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+}
+
+// ----------------------------------------------
+// メニューリスト
+// ----------------------------------------------
+.l-header__menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+
+  // SP：縦並び
+  @media (max-width: #{$header-bp - 1px}) {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  // PC：横並び
+  @media (min-width: #{$header-bp}) {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    gap: 0.125rem;
+  }
+
+  // ─ 共通リンク ─
+  > li > a {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    white-space: nowrap;
+
+    &:hover {
+      color: #fff;
+    }
+
+    // SP
+    @media (max-width: #{$header-bp - 1px}) {
+      font-size: 0.9375rem;
+      letter-spacing: 0.08em;
+      padding: 1rem 0.25rem;
+      width: 100%;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    // PC
+    @media (min-width: #{$header-bp}) {
+      padding: 0.375rem 0.875rem;
+      height: 100%;
+    }
+  }
+
+  // ─ ENTRY ボタン ─
+  .menu-item-entry > a {
+    background-color: f.color(cream);
+    color: f.color(navy);
+    padding: 0.5rem 1.25rem;
+    font-weight: 700;
+    height: auto;
+    border-bottom: none;
+
+    &:hover {
+      background-color: #fff;
+      color: f.color(navy);
+    }
+
+    @media (max-width: #{$header-bp - 1px}) {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      padding: 0.875rem;
+      border-bottom: none;
+    }
+  }
+}
+
+// ----------------------------------------------
+// ハンバーガーボタン
+// ----------------------------------------------
+.l-header__hamburger {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  gap: 5px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  flex-shrink: 0;
+
+  span {
+    display: block;
+    width: 22px;
+    height: 1.5px;
+    background-color: #fff;
+    border-radius: 1px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform-origin: center;
+  }
+
+  &.is-active {
+    span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+  }
+
+  @media (min-width: #{$header-bp}) {
+    display: none;
+  }
+}
+
+// ----------------------------------------------
+// ドロワーオーバーレイ
+// ----------------------------------------------
+.l-header__overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 200;
+  cursor: pointer;
+
+  &.is-active {
+    display: block;
+  }
 }

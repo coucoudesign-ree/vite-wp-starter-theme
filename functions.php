@@ -169,3 +169,45 @@ function vite_wp_register_cpt_blog(): void {
     ]);
 }
 add_action('init', 'vite_wp_register_cpt_blog');
+
+// ─────────────────────────────────────────────
+// 初回テーマ有効化：ナビメニュー自動作成
+// ─────────────────────────────────────────────
+function vite_wp_create_default_nav_menu(): void {
+    if (get_option('vite_wp_default_menu_created')) return;
+
+    $menu_id = wp_create_nav_menu('Primary Menu');
+    if (is_wp_error($menu_id)) return;
+
+    $home = home_url('/');
+    $items = [
+        ['TOP',     $home],
+        ['ABOUT',   $home . '#about'],
+        ['NEWS',    $home . '#news'],
+        ['RECRUIT', $home . '#recruit'],
+        ['FLOW',    $home . '#flow'],
+        ['COMPANY', $home . '#company'],
+        ['ENTRY',   $home . '#entry'],
+    ];
+
+    foreach ($items as $i => [$title, $url]) {
+        $args = [
+            'menu-item-title'    => $title,
+            'menu-item-url'      => $url,
+            'menu-item-status'   => 'publish',
+            'menu-item-type'     => 'custom',
+            'menu-item-position' => $i + 1,
+        ];
+        if ($title === 'ENTRY') {
+            $args['menu-item-classes'] = 'menu-item-entry';
+        }
+        wp_update_nav_menu_item($menu_id, 0, $args);
+    }
+
+    $locations             = get_theme_mod('nav_menu_locations', []);
+    $locations['primary']  = $menu_id;
+    set_theme_mod('nav_menu_locations', $locations);
+
+    update_option('vite_wp_default_menu_created', true);
+}
+add_action('after_switch_theme', 'vite_wp_create_default_nav_menu');
