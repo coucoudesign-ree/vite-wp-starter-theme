@@ -1,0 +1,30 @@
+{
+  "name": "vite-wp-starter",
+  "description": "WordPress theme with Vite + TypeScript + Dart Sass",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --write \"src/**/*.{ts,scss}\""
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^24.8.1",
+    "eslint": "^10.2.1",
+    "eslint-config-prettier": "^10.1.8",
+    "prettier": "^3.8.3",
+    "sass": "^1.93.2",
+    "terser": "^5.44.1",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.59.1",
+    "vite": "^7.1.7"
+  },
+  "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.1.0",
+    "gsap": "^3.14.2"
+  }
+}
